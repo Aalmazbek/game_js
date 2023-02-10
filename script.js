@@ -199,12 +199,29 @@ function updateResults() {
 
     $results.innerHTML = ''
 
-    playerResults.sort((a, b) => a.points > b.points ? -1 : 1)
-
+    playerResults.sort((a, b) => {
+        if(Number(a.points) > Number(b.points)){
+            return -1
+        }   else if (Number(a.points) < Number(b.points)) {
+            return 1
+        }   else{
+            return 0
+        }
+    })
+    
     if (playerResults.length > 10) {
-        playerResults = playerResults.slice(0, 10)
+        playerResults = playerResults.splice(0, 10)
     }
     
+    playerResults.sort((a, b) => {
+        if(Number(a.time) > Number(b.time)){
+            return 1
+        }   else if (Number(a.time) < Number(b.time)) {
+            return -1
+        }   else{
+            return 0
+        }
+    })
 
     playerResults.forEach(el => {
         $results.insertAdjacentHTML('beforeend', `

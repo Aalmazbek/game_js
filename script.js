@@ -3,6 +3,9 @@ let $loginInput = document.querySelector('#login-input')
 let $loginBtn = document.querySelector('#login-button')
 let $loginWarning = document.querySelector('#login-warning')
 
+let $resultHeader = document.querySelector('#result-header')
+let $result = document.querySelector('#result')
+
 let userName
 
 $loginBtn.addEventListener('click', function() {
@@ -79,12 +82,11 @@ function startGame() {
     $btnStart.classList.add('hide')
     
     $gamePlace.style.backgroundColor = 'white'
-    
+    $gameTime.setAttribute('disabled', 'true')
     
     
     createBox()
     timer()
-    
 }
 
 
@@ -179,6 +181,8 @@ function gameEnd(){
     localStorage.setItem('player-results', JSON.stringify(playerResults))
 
     updateResults()
+    $gameTime.removeAttribute('disabled')
+    showResult()
 }
 
 
@@ -194,10 +198,16 @@ function gameEnd(){
 function updateResults() {
 
     $results.innerHTML = ''
+
+    playerResults.sort((a, b) => a.points > b.points ? -1 : 1)
+
+    if (playerResults.length > 10) {
+        playerResults = playerResults.slice(0, 10)
+    }
     
 
     playerResults.forEach(el => {
-        $results.insertAdjacentHTML('afterbegin', `
+        $results.insertAdjacentHTML('beforeend', `
             <div class="player-result">
                 <h3>${el.name}</h3>
                 <h3>${el.points} очков</h3>
@@ -206,4 +216,12 @@ function updateResults() {
         `)    
     })
 
+}
+
+
+
+
+function showResult() {
+    $resultHeader.classList.remove('hide')
+    $result.innerHTML = points
 }

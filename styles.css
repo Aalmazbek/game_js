@@ -8,12 +8,11 @@
 
 body {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  overflow: hidden;
   background: linear-gradient(#CB356B, #BD3F32);
 }
 
@@ -208,7 +207,18 @@ body {
 
 
 
+h2{
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
 .player-result{
   display: flex;
   justify-content: space-around;
+}
+
+.player-result h3{
+  width: 33.3%;
+  text-align: center;
 }
